@@ -1,3 +1,3 @@
 # SE
 
-Se adjuntan dentro del codigo de la pracica 1 en comentarios cierta variacion del mismo ya que no consegui que funcionara correctamente.En ambos casos la salida no es la deseada pero alternan sus resultados.En todo caso los codigos son similares.
+Sin el delay no consigo que funcione,para que haga la suma de las veces que se pulsa el boton para cambiar el valor de la puerta es conveniente pulsar el tiempo suficiente hasta que cambie.Con un toque rapido no lo detecta.
