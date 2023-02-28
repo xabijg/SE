@@ -1,6 +1,9 @@
 
-// ////solo sale el rojo
-// #include "MKL46Z4.h"
+#include "MKL46Z4.h"
+
+// Switches
+#define SW1_MASK (1 << 3)
+#define SW2_MASK (1 << 12)
 
 // // LED (RG)
 // // LED_GREEN = PTD5
@@ -9,112 +12,21 @@
 // // Sensor SW1 (puerto C bit 3)
 // // Sensor SW2 (puerto C bit 12)
 
-// void delay(void)
-// {
-//   volatile int i;
-
-//   for (i = 0; i < 1000000; i++);
-// }
-
-// void led_green_init()
-// {
-//   SIM->COPC = 0;
-//   SIM->SCGC5 |= SIM_SCGC5_PORTD_MASK;
-//   PORTD->PCR[5] = PORT_PCR_MUX(1);
-//   GPIOD->PDDR |= (1 << 5);
-//   GPIOD->PSOR = (1 << 5);
-// }
-
-// void led_green_on()
-// {
-//   GPIOD->PCOR = (1 << 5);
-// }
-
-// void led_green_off()
-// {
-//   GPIOD->PSOR = (1 << 5);
-// }
-
-// void led_red_init()
-// {
-//   SIM->COPC = 0;
-//   SIM->SCGC5 |= SIM_SCGC5_PORTE_MASK;
-//   PORTE->PCR[29] = PORT_PCR_MUX(1);
-//   GPIOE->PDDR |= (1 << 29);
-//   GPIOE->PSOR = (1 << 29);
-// }
-
-// void led_red_on(void)
-// {
-//   GPIOE->PCOR = (1 << 29);
-// }
-
-// void led_red_off(void)
-// {
-//   GPIOE->PSOR = (1 << 29);
-// }
-
-// //Sensor SW1
-// int sw1_is_pressed()
-// {
-//   if ((GPIOC->PDIR & (1 << 3)) == 0) {
-//     delay();
-//     if ((GPIOC->PDIR & (1 << 3)) == 0) {
-//       return 1;
-//     }
-//   }
-//   return 0;
-// }
-
-// //Sensor SW2
-// int sw2_is_pressed()
-// {
-//   if ((GPIOC->PDIR & (1 << 12)) == 0) {
-//     delay();
-
-//     if ((GPIOC->PDIR & (1 << 12)) == 0) {
-//       return 1;
-//     }
-//   }
-//   return 0;
-// }
-
-// int main(void)
-// {
-//   led_green_init();
-//   led_red_init();
-
-//   while (1) {
-
-//     if (sw1_is_pressed() || sw2_is_pressed()) {
-//       //Al menos una abierta
-//       led_red_on();
-//       led_green_off();
-//     } else {
-//       //Ambas cerradas
-//       led_green_on();
-//       led_red_off();
-//     }
-//   }
-
-//   return 0;
-// }
-
-#include "MKL46Z4.h"
-
-// Switches
-#define SW1_MASK (1 << 3)
-#define SW2_MASK (1 << 12)
-
-// LED (RG)
-// LED_GREEN = PTD5
-// LED_RED = PTE29
-
 void delay(void)
 {
   volatile int i;
 
   for (i = 0; i < 1000000; i++);
+}
+
+
+void switch_init()
+{
+  SIM->COPC = 0;
+  SIM->SCGC5 |= SIM_SCGC5_PORTC_MASK;
+  PORTC->PCR[3] = PORT_PCR_MUX(1) | PORT_PCR_PE_MASK | PORT_PCR_PS_MASK;
+  PORTC->PCR[12] = PORT_PCR_MUX(1) | PORT_PCR_PE_MASK | PORT_PCR_PS_MASK;
+  GPIOC->PDDR &= ~(SW1_MASK | SW2_MASK);
 }
 
 // LED_GREEN = PTD5
@@ -171,6 +83,7 @@ int main(void)
 {
   led_green_init();
   led_red_init();
+  switch_init();
 
   int sw1_count = 0;
   int sw2_count = 0;
