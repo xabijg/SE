@@ -1,0 +1,6 @@
+
+El cronómetro cuenta con dos modos :
+
+El primer modo es para editar el tiempo inicial de la cuenta . Para hacerlo, se utiliza el botón derecho para aumentar en una unidad el dígito correspondiente y el botón izquierdo para avanzar al siguiente dígito. El orden de edición es: unidades de segundo, decenas de segundo, unidades de minuto y decenas de minuto.
+
+El segundo modo comienza al presionar el botón izquierdo una vez. Este modo se inicia en pausa, y se puede iniciar la cuenta regresiva presionando el botón derecho. Este mismo botón permite detener y reanudar la cuenta regresiva cuantas veces sea necesario. Si se detiene la cuenta regresiva, el botón izquierdo permite restablecer el cronómetro a cero y volver al estado inicial. Finalmente, cuando la cuenta regresiva finaliza, el cronómetro también vuelve al estado inicial.
